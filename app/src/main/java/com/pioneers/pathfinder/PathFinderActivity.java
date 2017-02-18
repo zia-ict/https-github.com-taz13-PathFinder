@@ -34,6 +34,7 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.pioneers.pathfinder.activity.PathList;
 import com.pioneers.pathfinder.adapter.PlaceAutocompleteAdapter;
 import com.pioneers.pathfinder.adapter.ViewPagerAdapter;
 import com.pioneers.pathfinder.common.libs.SlidingTabLayout;
@@ -99,13 +100,25 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
                                                 @Override
                                                 public void onClick(View v) {
                                                     Log.d("PathFinder","Shortest path found");
-                                                    Intent showOnMap = new Intent(PathFinderActivity.this, MapsActivity.class);
+//                                                    Intent showOnMap = new Intent(PathFinderActivity.this, MapsActivity.class);
+//                                                    showOnMap.putExtra("SourceLat",sourceLatitude);
+//                                                    showOnMap.putExtra("SourceLong", sourceLongitude);
+//                                                    showOnMap.putExtra("DestinationLat",destinationLatitudde);
+//                                                    showOnMap.putExtra("DestinationLong",destinationLongitude);
+//                                                    startActivity(showOnMap);
+
+
+
+                                                    Intent showOnMap = new Intent(PathFinderActivity.this, PathList.class);
                                                     showOnMap.putExtra("SourceLat",sourceLatitude);
                                                     showOnMap.putExtra("SourceLong", sourceLongitude);
                                                     showOnMap.putExtra("DestinationLat",destinationLatitudde);
                                                     showOnMap.putExtra("DestinationLong",destinationLongitude);
                                                     startActivity(showOnMap);
                                                 }
+
+
+
                                             });
 
         //Auto complete location code
