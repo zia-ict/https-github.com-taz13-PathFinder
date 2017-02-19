@@ -34,6 +34,7 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.pioneers.pathfinder.activity.PathList;
 import com.pioneers.pathfinder.adapter.PlaceAutocompleteAdapter;
 import com.pioneers.pathfinder.adapter.ViewPagerAdapter;
 import com.pioneers.pathfinder.common.libs.SlidingTabLayout;
@@ -83,12 +84,12 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         //Populating shortest path options
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                        R.array.path_options, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.path_options, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-                spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);
 
         //Adding event listener to the button
         findShortestPath= (Button)findViewById(R.id.btnFindPath);
@@ -96,17 +97,29 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         //setting onclick listener for find shortest path button
 
         findShortestPath.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    Log.d("PathFinder","Shortest path found");
-                                                    Intent showOnMap = new Intent(PathFinderActivity.this, MapsActivity.class);
-                                                    showOnMap.putExtra("SourceLat",sourceLatitude);
-                                                    showOnMap.putExtra("SourceLong", sourceLongitude);
-                                                    showOnMap.putExtra("DestinationLat",destinationLatitudde);
-                                                    showOnMap.putExtra("DestinationLong",destinationLongitude);
-                                                    startActivity(showOnMap);
-                                                }
-                                            });
+            @Override
+            public void onClick(View v) {
+                Log.d("PathFinder","Shortest path found");
+//                                                    Intent showOnMap = new Intent(PathFinderActivity.this, MapsActivity.class);
+//                                                    showOnMap.putExtra("SourceLat",sourceLatitude);
+//                                                    showOnMap.putExtra("SourceLong", sourceLongitude);
+//                                                    showOnMap.putExtra("DestinationLat",destinationLatitudde);
+//                                                    showOnMap.putExtra("DestinationLong",destinationLongitude);
+//                                                    startActivity(showOnMap);
+
+
+
+                Intent showOnMap = new Intent(PathFinderActivity.this, PathList.class);
+                showOnMap.putExtra("SourceLat",sourceLatitude);
+                showOnMap.putExtra("SourceLong", sourceLongitude);
+                showOnMap.putExtra("DestinationLat",destinationLatitudde);
+                showOnMap.putExtra("DestinationLong",destinationLongitude);
+                startActivity(showOnMap);
+            }
+
+
+
+        });
 
         //Auto complete location code
 
@@ -410,7 +423,7 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         {
             //It is executed on Background thread
 
-           return params[0].GetAllCustomers();
+            return params[0].GetAllCustomers();
         }
 
         @Override
