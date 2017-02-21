@@ -49,8 +49,8 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Shortest Path","Cheapest Path","Find Bus stop","Settings"};
-    int Numboftabs =4;
+    CharSequence Titles[] = {"Shortest Path", "Cheapest Path", "Find Bus stop", "Settings"};
+    int Numboftabs = 4;
     private Button findShortestPath;
 
     //For auto complete location
@@ -63,10 +63,11 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
     private AutoCompleteTextView mSourceTextView;
 
     private AutoCompleteTextView mDestTextView;
-    private Button btnClearSrc,btnClearDestination;
-    Double sourceLatitude, sourceLongitude,destinationLatitudde,destinationLongitude;
+    private Button btnClearSrc, btnClearDestination;
+    Double sourceLatitude, sourceLongitude, destinationLatitudde, destinationLongitude;
     CharSequence sourceName;
     private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,14 +93,14 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         spinner.setAdapter(adapter);
 
         //Adding event listener to the button
-        findShortestPath= (Button)findViewById(R.id.btnFindPath);
+        findShortestPath = (Button) findViewById(R.id.btnFindPath);
 
         //setting onclick listener for find shortest path button
 
         findShortestPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PathFinder","Shortest path found");
+                Log.d("PathFinder", "Shortest path found");
 //                                                    Intent showOnMap = new Intent(PathFinderActivity.this, MapsActivity.class);
 //                                                    showOnMap.putExtra("SourceLat",sourceLatitude);
 //                                                    showOnMap.putExtra("SourceLong", sourceLongitude);
@@ -108,15 +109,13 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
 //                                                    startActivity(showOnMap);
 
 
-
                 Intent showOnMap = new Intent(PathFinderActivity.this, PathList.class);
-                showOnMap.putExtra("SourceLat",sourceLatitude);
+                showOnMap.putExtra("SourceLat", sourceLatitude);
                 showOnMap.putExtra("SourceLong", sourceLongitude);
-                showOnMap.putExtra("DestinationLat",destinationLatitudde);
-                showOnMap.putExtra("DestinationLong",destinationLongitude);
+                showOnMap.putExtra("DestinationLat", destinationLatitudde);
+                showOnMap.putExtra("DestinationLong", destinationLongitude);
                 startActivity(showOnMap);
             }
-
 
 
         });
@@ -154,7 +153,7 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         btnClearSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mSourceTextView.getText().toString().equals("")){
+                if (!mSourceTextView.getText().toString().equals("")) {
                     mSourceTextView.setText("");
                     Log.d("PathFinder", "Clicked");
                 }
@@ -164,13 +163,12 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         btnClearDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mDestTextView.getText().toString().equals("")){
+                if (!mDestTextView.getText().toString().equals("")) {
                     mDestTextView.setText("");
                     Log.d("PathFinder", "Clicked");
                 }
             }
         });
-
 
 
 //
@@ -203,7 +201,7 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
         initAdMob();
     }
 
-    private void initAdMob(){
+    private void initAdMob() {
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
@@ -272,15 +270,15 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
             placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
                 @Override
                 public void onResult(@NonNull PlaceBuffer places) {
-                    if(places.getCount()==1){
+                    if (places.getCount() == 1) {
                         //Do the things here on Click.....
                         sourceLatitude = places.get(0).getLatLng().latitude;
                         sourceLongitude = places.get(0).getLatLng().longitude;
                         CharSequence sourceName = places.get(0).getName();
 
-                        Toast.makeText(getApplicationContext(),"Latitude:"+sourceLatitude+"Longitude:"+sourceLongitude,Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(),"SOMETHING_WENT_WRONG",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Latitude:" + sourceLatitude + "Longitude:" + sourceLongitude, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "SOMETHING_WENT_WRONG", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -290,7 +288,6 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
             //Log.i(TAG, "Called getPlaceById to get Place details for " + placeId);
         }
     };
-
 
 
     private AdapterView.OnItemClickListener mListen
@@ -319,14 +316,14 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
             placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
                 @Override
                 public void onResult(@NonNull PlaceBuffer places) {
-                    if(places.getCount()==1){
+                    if (places.getCount() == 1) {
                         //Do the things here on Click.....
 
-                        destinationLatitudde =  places.get(0).getLatLng().latitude;
+                        destinationLatitudde = places.get(0).getLatLng().latitude;
                         destinationLongitude = places.get(0).getLatLng().longitude;
-                        Toast.makeText(getApplicationContext(),"Latitude:"+sourceLatitude+"Longitude:"+sourceLongitude,Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(),"SOMETHING_WENT_WRONG",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Latitude:" + sourceLatitude + "Longitude:" + sourceLongitude, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "SOMETHING_WENT_WRONG", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -340,7 +337,6 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
     /**
      * Callback for results from a Places Geo Data API query that shows the first place result in
      * the details view on screen.
-     *
      */
    /* private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
             = new ResultCallback<PlaceBuffer>() {
@@ -384,10 +380,8 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
 //                websiteUri));
 //
 //    }
-
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
-    {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // TODO(Developer): Check error code and notify the user of error state and resolution.
         Toast.makeText(this,
                 "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
@@ -415,20 +409,17 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
 //       // this.responseTextView.setText(s); //Do all the c
 //    }
 
-    private class GetBusStopTask extends AsyncTask<ApiConnector, Long,JSONArray>
-    {
+    private class GetBusStopTask extends AsyncTask<ApiConnector, Long, JSONArray> {
 
         @Override
-        protected JSONArray doInBackground(ApiConnector... params)
-        {
+        protected JSONArray doInBackground(ApiConnector... params) {
             //It is executed on Background thread
 
             return params[0].GetAllCustomers();
         }
 
         @Override
-        protected void onPostExecute(JSONArray jsonArray)
-        {
+        protected void onPostExecute(JSONArray jsonArray) {
             //It is executed on the main thread
 
             //setTextToTextView(jsonArray);
@@ -453,7 +444,7 @@ public class PathFinderActivity extends AppCompatActivity implements GoogleApiCl
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy() { // To destroy adview
         if (mAdView != null) {
             mAdView.destroy();
         }
